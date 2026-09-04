@@ -1,0 +1,22 @@
+{
+  "openness": {
+    "mae": 6.23,
+    "r2": 0.736
+  },
+  "conscientiousness": {
+    "mae": 6.34,
+    "r2": 0.704
+  },
+  "extraversion": {
+    "mae": 5.42,
+    "r2": 0.794
+  },
+  "agreeableness": {
+    "mae": 6.17,
+    "r2": 0.735
+  },
+  "emotional_stability": {
+    "mae": 7.25,
+    "r2": 0.684
+  }
+}
