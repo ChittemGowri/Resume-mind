@@ -1,5 +1,6 @@
 """ResumeMind - Modern AI Resume Personality & Career Analyzer."""
 
+import json
 import matplotlib.pyplot as plt
 import streamlit as st
 
@@ -28,10 +29,7 @@ st.markdown(
     """
     <style>
 
-    /* ======================================================
-       GLOBAL
-       ====================================================== */
-
+    /* GLOBAL */
     .stApp {
         background: #f7f9fc;
         color: #172033;
@@ -55,10 +53,7 @@ st.markdown(
         background: transparent !important;
     }
 
-    /* ======================================================
-       SIDEBAR
-       ====================================================== */
-
+    /* SIDEBAR */
     section[data-testid="stSidebar"] {
         background: #ffffff;
         border-right: 1px solid #e6ebf2;
@@ -81,11 +76,7 @@ st.markdown(
         width: 46px;
         height: 46px;
         border-radius: 14px;
-        background: linear-gradient(
-            135deg,
-            #dbeafe,
-            #ede9fe
-        );
+        background: linear-gradient(135deg, #dbeafe, #ede9fe);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -116,11 +107,7 @@ st.markdown(
     }
 
     .side-info {
-        background: linear-gradient(
-            135deg,
-            #eff6ff,
-            #f5f3ff
-        );
+        background: linear-gradient(135deg, #eff6ff, #f5f3ff);
         border: 1px solid #dce7fb;
         border-radius: 16px;
         padding: 1rem;
@@ -153,10 +140,7 @@ st.markdown(
         margin-top: 1.3rem;
     }
 
-    /* ======================================================
-       TOP BAR
-       ====================================================== */
-
+    /* TOP BAR */
     .topbar {
         display: flex;
         justify-content: flex-end;
@@ -175,10 +159,7 @@ st.markdown(
         box-shadow: 0 3px 12px rgba(31, 48, 78, 0.035);
     }
 
-    /* ======================================================
-       HERO
-       ====================================================== */
-
+    /* HERO */
     .hero {
         position: relative;
         overflow: hidden;
@@ -187,22 +168,9 @@ st.markdown(
         padding: 2.1rem 2.2rem;
         margin-bottom: 1.2rem;
         background:
-            radial-gradient(
-                circle at 90% 20%,
-                rgba(124, 58, 237, 0.09),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 60% 100%,
-                rgba(37, 99, 235, 0.08),
-                transparent 35%
-            ),
-            linear-gradient(
-                135deg,
-                #f0f9ff,
-                #ffffff 52%,
-                #f5f3ff
-            );
+            radial-gradient(circle at 90% 20%, rgba(124, 58, 237, 0.09), transparent 30%),
+            radial-gradient(circle at 60% 100%, rgba(37, 99, 235, 0.08), transparent 35%),
+            linear-gradient(135deg, #f0f9ff, #ffffff 52%, #f5f3ff);
         box-shadow: 0 8px 30px rgba(40, 72, 120, 0.05);
     }
 
@@ -269,10 +237,7 @@ st.markdown(
         opacity: 0.9;
     }
 
-    /* ======================================================
-       SECTION HEADERS
-       ====================================================== */
-
+    /* SECTION HEADERS */
     .section-header {
         display: flex;
         align-items: center;
@@ -294,10 +259,7 @@ st.markdown(
         font-size: 0.73rem;
     }
 
-    /* ======================================================
-       UPLOAD CARD
-       ====================================================== */
-
+    /* UPLOAD CARD */
     .upload-card {
         background: white;
         border: 1.5px dashed #c9d8ee;
@@ -330,10 +292,7 @@ st.markdown(
         font-size: 24px;
     }
 
-    /* ======================================================
-       BUTTONS
-       ====================================================== */
-
+    /* BUTTONS */
     .stButton > button {
         border-radius: 12px !important;
         min-height: 2.8rem;
@@ -347,10 +306,7 @@ st.markdown(
         box-shadow: 0 7px 18px rgba(37, 99, 235, 0.18);
     }
 
-    /* ======================================================
-       PERSONALITY METRICS
-       ====================================================== */
-
+    /* PERSONALITY METRICS */
     .trait-card {
         background: white;
         border: 1px solid #e5eaf2;
@@ -362,25 +318,11 @@ st.markdown(
         overflow: hidden;
     }
 
-    .trait-card.blue {
-        border-top: 3px solid #3b82f6;
-    }
-
-    .trait-card.green {
-        border-top: 3px solid #22c55e;
-    }
-
-    .trait-card.orange {
-        border-top: 3px solid #f59e0b;
-    }
-
-    .trait-card.pink {
-        border-top: 3px solid #ec4899;
-    }
-
-    .trait-card.purple {
-        border-top: 3px solid #8b5cf6;
-    }
+    .trait-card.blue { border-top: 3px solid #3b82f6; }
+    .trait-card.green { border-top: 3px solid #22c55e; }
+    .trait-card.orange { border-top: 3px solid #f59e0b; }
+    .trait-card.pink { border-top: 3px solid #ec4899; }
+    .trait-card.purple { border-top: 3px solid #8b5cf6; }
 
     .trait-icon {
         width: 38px;
@@ -420,10 +362,7 @@ st.markdown(
         border-radius: 99px;
     }
 
-    /* ======================================================
-       GENERAL CARDS
-       ====================================================== */
-
+    /* GENERAL CARDS */
     .info-card {
         background: white;
         border: 1px solid #e4e9f1;
@@ -446,10 +385,7 @@ st.markdown(
         line-height: 1.55;
     }
 
-    /* ======================================================
-       SKILLS
-       ====================================================== */
-
+    /* SKILLS */
     .skills-card {
         background: white;
         border: 1px solid #e3e9f3;
@@ -487,10 +423,7 @@ st.markdown(
         border: 1px solid #f9d9e9;
     }
 
-    /* ======================================================
-       CAREER CARDS
-       ====================================================== */
-
+    /* CAREER CARDS */
     .career-card {
         background: white;
         border: 1px solid #e3e9f2;
@@ -542,16 +475,9 @@ st.markdown(
         margin: 0.15rem;
     }
 
-    /* ======================================================
-       PRIVACY CARD
-       ====================================================== */
-
+    /* PRIVACY CARD */
     .privacy-card {
-        background: linear-gradient(
-            135deg,
-            #eff6ff,
-            #f7f3ff
-        );
+        background: linear-gradient(135deg, #eff6ff, #f7f3ff);
         border: 1px solid #dce6fa;
         border-radius: 18px;
         padding: 1rem;
@@ -577,30 +503,19 @@ st.markdown(
         margin-top: 0.25rem;
     }
 
-    /* ======================================================
-       FOOTER
-       ====================================================== */
-
+    /* FOOTER */
     .app-footer {
         margin-top: 2rem;
         border-radius: 16px;
         padding: 0.85rem;
         text-align: center;
-        background: linear-gradient(
-            90deg,
-            #f8efff,
-            #eef6ff,
-            #fff2f8
-        );
+        background: linear-gradient(90deg, #f8efff, #eef6ff, #fff2f8);
         color: #68768a;
         font-size: 0.73rem;
         border: 1px solid #ebe5f3;
     }
 
-    /* ======================================================
-       FILE UPLOADER
-       ====================================================== */
-
+    /* FILE UPLOADER */
     [data-testid="stFileUploader"] {
         background: transparent;
     }
@@ -611,10 +526,7 @@ st.markdown(
         border-radius: 14px !important;
     }
 
-    /* ======================================================
-       EXPANDER
-       ====================================================== */
-
+    /* EXPANDER */
     .streamlit-expanderHeader {
         border-radius: 12px !important;
     }
@@ -626,7 +538,7 @@ st.markdown(
 
 
 # ============================================================
-# TRAIT LABELS
+# TRAIT LABELS & METADATA
 # ============================================================
 
 TRAIT_LABELS = {
@@ -637,33 +549,17 @@ TRAIT_LABELS = {
     "emotional_stability": "Emotional Stability",
 }
 
-
 TRAIT_META = {
-    "openness": {
-        "icon": "💡",
-        "class": "blue",
-    },
-    "conscientiousness": {
-        "icon": "🎯",
-        "class": "green",
-    },
-    "extraversion": {
-        "icon": "👥",
-        "class": "orange",
-    },
-    "agreeableness": {
-        "icon": "💗",
-        "class": "pink",
-    },
-    "emotional_stability": {
-        "icon": "🛡️",
-        "class": "purple",
-    },
+    "openness": {"icon": "💡", "class": "blue"},
+    "conscientiousness": {"icon": "🎯", "class": "green"},
+    "extraversion": {"icon": "👥", "class": "orange"},
+    "agreeableness": {"icon": "💗", "class": "pink"},
+    "emotional_stability": {"icon": "🛡️", "class": "purple"},
 }
 
 
 # ============================================================
-# MODEL
+# MODEL CACHING
 # ============================================================
 
 @st.cache_resource
@@ -680,46 +576,23 @@ def safe_list(value):
     """Return a safe list."""
     if not value:
         return []
-
     if isinstance(value, (list, tuple, set)):
         return list(value)
-
     return [str(value)]
 
 
 def render_skill_pills(items, pill_class="technical-pill"):
     """Render skills as rounded pills."""
-
     items = safe_list(items)
-
     if not items:
-        return (
-            "<span style='color:#8994a6;font-size:.72rem;'>"
-            "No skills detected"
-            "</span>"
-        )
+        return "<span style='color:#8994a6;font-size:.72rem;'>No skills detected</span>"
 
-    return "".join(
-        f"<span class='skill-pill {pill_class}'>{item}</span>"
-        for item in items
-    )
+    return "".join(f"<span class='skill-pill {pill_class}'>{item}</span>" for item in items)
 
 
 def calculate_match(recommendation, index=0):
-    """
-    Generate a visual match score.
-
-    If the backend later provides a match_score,
-    it will automatically be used.
-    """
-
-    possible_keys = [
-        "match_score",
-        "match",
-        "score",
-        "fit_score",
-    ]
-
+    """Generate a visual match score with fallback calculation."""
+    possible_keys = ["match_score", "match", "score", "fit_score"]
     for key in possible_keys:
         if key in recommendation:
             try:
@@ -727,12 +600,8 @@ def calculate_match(recommendation, index=0):
             except (ValueError, TypeError):
                 pass
 
-    # Visual fallback if backend doesn't provide a score.
-    fallback_scores = [92, 87, 82, 78, 74]
-
-    return fallback_scores[
-        min(index, len(fallback_scores) - 1)
-    ]
+    # Dynamic fallback scaling to prevent static duplication past index 4
+    return max(50.0, round(92.0 - (index * 4.5), 1))
 
 
 # ============================================================
@@ -741,80 +610,42 @@ def calculate_match(recommendation, index=0):
 
 def personality_chart(scores):
     """Create a clean personality chart."""
-
     labels = []
     values = []
 
     for key, value in scores.items():
-
-        labels.append(
-            TRAIT_LABELS.get(
-                key,
-                key.replace("_", " ").title(),
-            )
-        )
-
+        labels.append(TRAIT_LABELS.get(key, key.replace("_", " ").title()))
         try:
             values.append(float(value))
         except (ValueError, TypeError):
             values.append(0)
 
-    fig, ax = plt.subplots(
-        figsize=(8.5, 3.6)
-    )
-
-    chart_colors = [
-        "#3B82F6",
-        "#22C55E",
-        "#F59E0B",
-        "#EC4899",
-        "#8B5CF6",
-    ]
+    fig, ax = plt.subplots(figsize=(8.5, 3.6))
+    chart_colors = ["#3B82F6", "#22C55E", "#F59E0B", "#EC4899", "#8B5CF6"]
 
     bars = ax.barh(
         labels,
         values,
-        color=chart_colors[:len(values)],
+        color=chart_colors[: len(values)],
         height=0.55,
     )
 
     ax.set_xlim(0, 100)
-
-    ax.set_xlabel(
-        "Experimental estimated score (%)",
-        fontsize=9,
-        color="#64748B",
-    )
-
-    ax.tick_params(
-        axis="both",
-        labelsize=8.5,
-        colors="#475467",
-    )
+    ax.set_xlabel("Experimental estimated score (%)", fontsize=9, color="#64748B")
+    ax.tick_params(axis="both", labelsize=8.5, colors="#475467")
 
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_visible(False)
 
-    ax.grid(
-        axis="x",
-        alpha=0.16,
-        linewidth=0.8,
-    )
-
+    ax.grid(axis="x", alpha=0.16, linewidth=0.8)
     ax.set_axisbelow(True)
 
     for bar, value in zip(bars, values):
-
-        x_position = min(
-            value + 1.5,
-            94,
-        )
-
+        x_position = min(value + 1.5, 94)
         ax.text(
             x_position,
-            bar.get_y()
-            + bar.get_height() / 2,
+            bar.get_y() + bar.get_height() / 2,
             f"{value:.0f}%",
             va="center",
             fontsize=9,
@@ -823,9 +654,7 @@ def personality_chart(scores):
         )
 
     fig.patch.set_alpha(0)
-
     ax.set_facecolor("white")
-
     fig.tight_layout()
 
     return fig
@@ -836,100 +665,48 @@ def personality_chart(scores):
 # ============================================================
 
 def render_sidebar():
-
     with st.sidebar:
-
         st.markdown(
             """
             <div class="brand">
-
-                <div class="brand-icon">
-                    🧠
-                </div>
-
+                <div class="brand-icon">🧠</div>
                 <div>
-                    <div class="brand-name">
-                        ResumeMind
-                    </div>
-
-                    <div class="brand-subtitle">
-                        AI Career Analyzer
-                    </div>
+                    <div class="brand-name">ResumeMind</div>
+                    <div class="brand-subtitle">AI Career Analyzer</div>
                 </div>
-
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        st.markdown(
-            "<div class='side-section'>Workspace</div>",
-            unsafe_allow_html=True,
-        )
+        st.markdown("<div class='side-section'>Workspace</div>", unsafe_allow_html=True)
 
-        if st.button(
-            "🏠  Dashboard",
-            use_container_width=True,
-        ):
-            st.session_state["new_analysis"] = True
+        if st.button("🏠  Dashboard", use_container_width=True):
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
             st.rerun()
 
-        if st.button(
-            "↻  Analysis History",
-            use_container_width=True,
-        ):
-            st.info(
-                "Analysis history can be added here "
-                "using Streamlit session state or a database."
-            )
+        if st.button("↻  Analysis History", use_container_width=True):
+            st.info("Analysis history can be added here using Streamlit session state or a database.")
 
-        st.markdown(
-            "<div class='side-section'>Resources</div>",
-            unsafe_allow_html=True,
-        )
+        st.markdown("<div class='side-section'>Resources</div>", unsafe_allow_html=True)
 
-        if st.button(
-            "💡  Tips & Guide",
-            use_container_width=True,
-        ):
-            st.info(
-                "Use a text-based PDF with clear sections "
-                "such as Skills, Education, Experience and Projects."
-            )
+        if st.button("💡  Tips & Guide", use_container_width=True):
+            st.info("Use a text-based PDF with clear sections such as Skills, Education, Experience and Projects.")
 
-        if st.button(
-            "ⓘ  About ResumeMind",
-            use_container_width=True,
-        ):
-            st.info(
-                "ResumeMind uses local classical machine "
-                "learning to analyze resume language."
-            )
+        if st.button("ⓘ  About ResumeMind", use_container_width=True):
+            st.info("ResumeMind uses local classical machine learning to analyze resume language.")
 
         st.markdown(
             """
             <div class="side-info">
-
-                <div class="side-info-icon">
-                    🔒
-                </div>
-
-                <div class="side-info-title">
-                    Privacy First
-                </div>
-
+                <div class="side-info-icon">🔒</div>
+                <div class="side-info-title">Privacy First</div>
                 <div class="side-info-text">
-                    Your resume is processed by the
-                    running application and is not
-                    intentionally sent to an external
-                    AI service.
+                    Your resume is processed by the running application and is not intentionally sent to an external AI service.
                 </div>
-
             </div>
-
-            <div class="side-footer">
-                ResumeMind • Local ML • v1.0.0
-            </div>
+            <div class="side-footer">ResumeMind • Local ML • v1.0.0</div>
             """,
             unsafe_allow_html=True,
         )
@@ -940,71 +717,34 @@ def render_sidebar():
 # ============================================================
 
 def render_hero():
-
     st.markdown(
         """
         <div class="topbar">
-
-            <span class="top-pill">
-                ☀️ Light
-            </span>
-
-            <span class="top-pill">
-                🔐 Private
-            </span>
-
+            <span class="top-pill">☀️ Light</span>
+            <span class="top-pill">🔐 Private</span>
         </div>
-
         <div class="hero">
-
-            <div class="hero-eyebrow">
-                ✨ Local Classical Machine Learning
-            </div>
-
-            <div class="hero-title">
-                AI-Powered Resume<br>
-                Personality & Career Analyzer
-            </div>
-
+            <div class="hero-eyebrow">✨ Local Classical Machine Learning</div>
+            <div class="hero-title">AI-Powered Resume<br>Personality & Career Analyzer</div>
             <div class="hero-description">
-                Upload your resume and discover personality
-                insights, valuable skills, resume signals,
-                and career directions — all through
-                transparent local machine learning.
+                Upload your resume and discover personality insights, valuable skills, resume signals,
+                and career directions — all through transparent local machine learning.
             </div>
-
             <div class="hero-features">
-
                 <div class="hero-feature">
                     <span class="hero-feature-icon">🧠</span>
-                    <span>
-                        <b>Personality Insights</b><br>
-                        5 Big Traits
-                    </span>
+                    <span><b>Personality Insights</b><br>5 Big Traits</span>
                 </div>
-
                 <div class="hero-feature">
                     <span class="hero-feature-icon">🧩</span>
-                    <span>
-                        <b>Skills Detection</b><br>
-                        Technical & Soft
-                    </span>
+                    <span><b>Skills Detection</b><br>Technical & Soft</span>
                 </div>
-
                 <div class="hero-feature">
                     <span class="hero-feature-icon">🚀</span>
-                    <span>
-                        <b>Career Guidance</b><br>
-                        Smart Recommendations
-                    </span>
+                    <span><b>Career Guidance</b><br>Smart Recommendations</span>
                 </div>
-
             </div>
-
-            <div class="hero-art">
-                📄🔍
-            </div>
-
+            <div class="hero-art">📄🔍</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -1016,19 +756,11 @@ def render_hero():
 # ============================================================
 
 def render_upload():
-
     st.markdown(
         """
         <div class="section-header">
-
-            <div class="section-title">
-                📄 Analyze your resume
-            </div>
-
-            <div class="section-subtitle">
-                PDF • Text-based resume recommended
-            </div>
-
+            <div class="section-title">📄 Analyze your resume</div>
+            <div class="section-subtitle">PDF • Text-based resume recommended</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -1037,25 +769,13 @@ def render_upload():
     st.markdown(
         """
         <div class="upload-card">
-
             <div style="display:flex;align-items:center;gap:14px;">
-
-                <div class="upload-icon">
-                    ☁️
-                </div>
-
+                <div class="upload-icon">☁️</div>
                 <div>
-                    <div class="upload-title">
-                        Upload your resume
-                    </div>
-
-                    <div class="upload-subtitle">
-                        Choose a PDF resume to begin your analysis.
-                    </div>
+                    <div class="upload-title">Upload your resume</div>
+                    <div class="upload-subtitle">Choose a PDF resume to begin your analysis.</div>
                 </div>
-
             </div>
-
         </div>
         """,
         unsafe_allow_html=True,
@@ -1064,18 +784,13 @@ def render_upload():
     upload = st.file_uploader(
         "Choose PDF file",
         type=["pdf"],
-        help=(
-            "Use a text-based PDF rather than "
-            "a scanned image."
-        ),
+        help="Use a text-based PDF rather than a scanned image.",
         label_visibility="collapsed",
+        key="resume_uploader",
     )
 
     if upload:
-
-        st.success(
-            f"✓ {upload.name} is ready for analysis"
-        )
+        st.success(f"✓ {upload.name} is ready for analysis")
 
     analyze = st.button(
         "✨  Analyze Resume",
@@ -1086,12 +801,7 @@ def render_upload():
 
     st.markdown(
         """
-        <div style="
-            text-align:center;
-            color:#8994a6;
-            font-size:.68rem;
-            margin-top:.35rem;
-        ">
+        <div style="text-align:center;color:#8994a6;font-size:.68rem;margin-top:.35rem;">
             🔒 Your resume stays within the running application.
         </div>
         """,
@@ -1106,44 +816,25 @@ def render_upload():
 # ============================================================
 
 def render_personality(scores):
-
     st.markdown(
         """
         <div class="section-header">
-
-            <div class="section-title">
-                📊 Personality Snapshot
-            </div>
-
-            <div class="section-subtitle">
-                Experimental estimates
-            </div>
-
+            <div class="section-title">📊 Personality Snapshot</div>
+            <div class="section-subtitle">Experimental estimates</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     st.caption(
-        "These scores are inferred from resume language using "
-        "classical machine learning. They are not a psychological "
-        "assessment or hiring recommendation."
+        "These scores are inferred from resume language using classical machine learning. "
+        "They are not a psychological assessment or hiring recommendation."
     )
 
     metric_columns = st.columns(5)
+    trait_classes = ["blue", "green", "orange", "pink", "purple"]
 
-    trait_classes = [
-        "blue",
-        "green",
-        "orange",
-        "pink",
-        "purple",
-    ]
-
-    for index, (trait, value) in enumerate(
-        scores.items()
-    ):
-
+    for index, (trait, value) in enumerate(scores.items()):
         try:
             numeric_value = float(value)
         except (ValueError, TypeError):
@@ -1151,115 +842,51 @@ def render_personality(scores):
 
         meta = TRAIT_META.get(
             trait,
-            {
-                "icon": "✨",
-                "class": trait_classes[
-                    min(index, 4)
-                ],
-            },
+            {"icon": "✨", "class": trait_classes[min(index, 4)]},
         )
 
         with metric_columns[index]:
-
             st.markdown(
                 f"""
                 <div class="trait-card {meta['class']}">
-
-                    <div class="trait-icon"
-                         style="
-                         background:#f0f5ff;
-                         ">
-
-                        {meta['icon']}
-
-                    </div>
-
-                    <div class="trait-name">
-                        {TRAIT_LABELS.get(
-                            trait,
-                            trait.replace("_", " ").title()
-                        )}
-                    </div>
-
-                    <div class="trait-score">
-                        {numeric_value:.0f}%
-                    </div>
-
+                    <div class="trait-icon" style="background:#f0f5ff;">{meta['icon']}</div>
+                    <div class="trait-name">{TRAIT_LABELS.get(trait, trait.replace("_", " ").title())}</div>
+                    <div class="trait-score">{numeric_value:.0f}%</div>
                     <div class="progress-track">
-
-                        <div
-                            class="progress-fill"
-                            style="
-                            width:{max(0,min(100,numeric_value))}%;
-                            background:linear-gradient(
-                                90deg,
-                                #3b82f6,
-                                #8b5cf6
-                            );
-                            ">
-                        </div>
-
+                        <div class="progress-fill" style="width:{max(0, min(100, numeric_value))}%;background:linear-gradient(90deg, #3b82f6, #8b5cf6);"></div>
                     </div>
-
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
 
-    chart_left, chart_right = st.columns(
-        [2.1, 0.8]
-    )
+    chart_left, chart_right = st.columns([2.1, 0.8])
 
     with chart_left:
-
         st.markdown(
             """
-            <div class="info-card"
-                 style="padding-bottom:.3rem;">
-
-                <div class="info-card-title">
-                    Personality Trait Distribution
-                </div>
-
+            <div class="info-card" style="padding-bottom:.3rem;">
+                <div class="info-card-title">Personality Trait Distribution</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        st.pyplot(
-            personality_chart(scores),
-            use_container_width=True,
-        )
+        fig = personality_chart(scores)
+        st.pyplot(fig, use_container_width=True)
+        plt.close(fig)  # Prevents memory leak
 
     with chart_right:
-
         st.markdown(
             """
             <div class="privacy-card">
-
-                <div class="privacy-icon">
-                    ℹ️
-                </div>
-
-                <div class="privacy-title">
-                    About these scores
-                </div>
-
+                <div class="privacy-icon">ℹ️</div>
+                <div class="privacy-title">About these scores</div>
                 <div class="privacy-text">
-                    Estimates are generated from
-                    resume language using local
-                    classical machine learning.
-                    They should be interpreted
-                    as experimental signals.
+                    Estimates are generated from resume language using local classical machine learning.
+                    They should be interpreted as experimental signals.
                 </div>
-
-                <div style="
-                    font-size:2rem;
-                    margin-top:.6rem;
-                ">
-                    🧠
-                </div>
-
+                <div style="font-size:2rem;margin-top:.6rem;">🧠</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -1271,160 +898,82 @@ def render_personality(scores):
 # ============================================================
 
 def render_resume_signals(insights):
-
     st.markdown(
         """
         <div class="section-header">
-
-            <div class="section-title">
-                ✨ Resume Signals
-            </div>
-
+            <div class="section-title">✨ Resume Signals</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    technical = insights.get(
-        "technical_skills",
-        [],
-    )
-
-    soft = insights.get(
-        "soft_skills",
-        [],
-    )
+    technical = insights.get("technical_skills", [])
+    soft = insights.get("soft_skills", [])
 
     skill_left, skill_right = st.columns(2)
 
     with skill_left:
-
         st.markdown(
             f"""
             <div class="skills-card">
-
-                <div class="skills-title">
-                    💻 Technical Skills
-                </div>
-
-                {render_skill_pills(
-                    technical,
-                    "technical-pill"
-                )}
-
+                <div class="skills-title">💻 Technical Skills</div>
+                {render_skill_pills(technical, "technical-pill")}
             </div>
             """,
             unsafe_allow_html=True,
         )
 
     with skill_right:
-
         st.markdown(
             f"""
             <div class="skills-card">
-
-                <div class="skills-title">
-                    🤝 Soft Skills
-                </div>
-
-                {render_skill_pills(
-                    soft,
-                    "soft-pill"
-                )}
-
+                <div class="skills-title">🤝 Soft Skills</div>
+                {render_skill_pills(soft, "soft-pill")}
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    st.markdown(
-        "<div style='height:10px'></div>",
-        unsafe_allow_html=True,
-    )
+    st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
 
-    education = insights.get(
-        "education_keywords",
-        [],
-    )
-
-    experience = insights.get(
-        "experience_indicator",
-        "No experience indicator detected.",
-    )
-
-    projects = insights.get(
-        "project_keywords",
-        [],
-    )
+    education = insights.get("education_keywords", [])
+    experience = insights.get("experience_indicator", "No experience indicator detected.")
+    projects = insights.get("project_keywords", [])
 
     a, b, c = st.columns(3)
 
     with a:
-
         st.markdown(
             f"""
             <div class="info-card">
-
-                <div class="info-card-title">
-                    🎓 Education
-                </div>
-
+                <div class="info-card-title">🎓 Education</div>
                 <div class="info-card-text">
-                    {
-                        ", ".join(
-                            safe_list(education)
-                        )
-                        if education
-                        else
-                        "No common education keyword found"
-                    }
+                    {", ".join(safe_list(education)) if education else "No common education keyword found"}
                 </div>
-
             </div>
             """,
             unsafe_allow_html=True,
         )
 
     with b:
-
         st.markdown(
             f"""
             <div class="info-card">
-
-                <div class="info-card-title">
-                    💼 Experience
-                </div>
-
-                <div class="info-card-text">
-                    {experience}
-                </div>
-
+                <div class="info-card-title">💼 Experience</div>
+                <div class="info-card-text">{experience}</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
     with c:
-
         st.markdown(
             f"""
             <div class="info-card">
-
-                <div class="info-card-title">
-                    🚀 Projects
-                </div>
-
+                <div class="info-card-title">🚀 Projects</div>
                 <div class="info-card-text">
-                    {
-                        ", ".join(
-                            safe_list(projects)
-                        )
-                        if projects
-                        else
-                        "No project keyword found"
-                    }
+                    {", ".join(safe_list(projects)) if projects else "No project keyword found"}
                 </div>
-
             </div>
             """,
             unsafe_allow_html=True,
@@ -1436,127 +985,50 @@ def render_resume_signals(insights):
 # ============================================================
 
 def render_career_directions(insights):
-
     st.markdown(
         """
         <div class="section-header">
-
-            <div class="section-title">
-                🎯 Career Directions
-            </div>
-
-            <div class="section-subtitle">
-                Suggested based on your resume signals
-            </div>
-
+            <div class="section-title">🎯 Career Directions</div>
+            <div class="section-subtitle">Suggested based on your resume signals</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    recommendations = insights.get(
-        "recommendations",
-        [],
-    )
+    recommendations = insights.get("recommendations", [])
 
     if not recommendations:
-
-        st.info(
-            "No career recommendations were generated."
-        )
-
+        st.info("No career recommendations were generated.")
         return
 
-    # Display three cards per row
-    for start in range(
-        0,
-        len(recommendations),
-        3,
-    ):
-
-        row = recommendations[
-            start:start + 3
-        ]
-
+    for start in range(0, len(recommendations), 3):
+        row = recommendations[start : start + 3]
         columns = st.columns(3)
 
-        for index, (
-            column,
-            recommendation,
-        ) in enumerate(
-            zip(columns, row)
-        ):
-
-            role = recommendation.get(
-                "role",
-                "Suggested Career",
-            )
-
-            missing = safe_list(
-                recommendation.get(
-                    "missing_skills",
-                    [],
-                )
-            )
-
+        for index, (column, recommendation) in enumerate(zip(columns, row)):
+            role = recommendation.get("role", "Suggested Career")
+            missing = safe_list(recommendation.get("missing_skills", []))
             description = recommendation.get(
                 "description",
-                "A career direction that aligns "
-                "with the signals found in your resume.",
+                "A career direction that aligns with the signals found in your resume.",
             )
 
-            match = calculate_match(
-                recommendation,
-                start + index,
-            )
-
-            skill_html = ""
+            match = calculate_match(recommendation, start + index)
 
             if missing:
-
-                skill_html = "".join(
-                    f"""
-                    <span class="career-skill">
-                        {skill}
-                    </span>
-                    """
-                    for skill in missing
-                )
-
+                skill_html = "".join(f'<span class="career-skill">{skill}</span>' for skill in missing)
             else:
-
-                skill_html = """
-                <span class="career-skill">
-                    No major skill gaps detected
-                </span>
-                """
+                skill_html = '<span class="career-skill">No major skill gaps detected</span>'
 
             with column:
-
                 st.markdown(
                     f"""
                     <div class="career-card">
-
-                        <span class="match-badge">
-                            {match:.0f}% Match
-                        </span>
-
-                        <div class="career-role">
-                            {role}
-                        </div>
-
-                        <div class="career-description">
-                            {description}
-                        </div>
-
-                        <div class="career-label">
-                            Suggested Next Skills
-                        </div>
-
-                        <div style="margin-top:.25rem;">
-                            {skill_html}
-                        </div>
-
+                        <span class="match-badge">{match:.0f}% Match</span>
+                        <div class="career-role">{role}</div>
+                        <div class="career-description">{description}</div>
+                        <div class="career-label">Suggested Next Skills</div>
+                        <div style="margin-top:.25rem;">{skill_html}</div>
                     </div>
                     """,
                     unsafe_allow_html=True,
@@ -1568,190 +1040,106 @@ def render_career_directions(insights):
 # ============================================================
 
 def run_analysis(upload):
-
     progress = st.progress(0)
-
     status = st.empty()
 
     try:
-
-        # ----------------------------------------------------
-        # STEP 1
-        # ----------------------------------------------------
-
-        status.info(
-            "📄 Reading your resume..."
-        )
-
+        # STEP 1: Text extraction & validation
+        status.info("📄 Reading your resume...")
         progress.progress(20)
 
-        text = extract_resume_text(
-            upload.getvalue()
-        )
+        text = extract_resume_text(upload.getvalue())
 
-        if not text or not text.strip():
-
+        if not text or len(text.strip()) < 100:
             progress.empty()
             status.empty()
-
             st.error(
-                "No readable text was found in this PDF. "
-                "Please upload a text-based PDF instead "
-                "of a scanned image."
+                "Insufficient or readable text found in this PDF (<100 characters). "
+                "Please upload a standard text-based PDF instead of a scanned image."
             )
-
             return
 
-        # ----------------------------------------------------
-        # STEP 2
-        # ----------------------------------------------------
-
-        status.info(
-            "🧠 Loading your personality model..."
-        )
-
+        # STEP 2: Model setup
+        status.info("🧠 Loading your personality model...")
         progress.progress(40)
-
         predictor = load_predictor()
 
-        # ----------------------------------------------------
-        # STEP 3
-        # ----------------------------------------------------
-
-        status.info(
-            "🔍 Analyzing resume language..."
-        )
-
+        # STEP 3: Language prediction
+        status.info("🔍 Analyzing resume language...")
         progress.progress(60)
+        scores = predictor.predict(text)
 
-        scores = predictor.predict(
-            text
-        )
-
-        # ----------------------------------------------------
-        # STEP 4
-        # ----------------------------------------------------
-
-        status.info(
-            "🎯 Finding your career directions..."
-        )
-
+        # STEP 4: Insights calculation
+        status.info("🎯 Finding your career directions...")
         progress.progress(80)
-
-        # IMPORTANT:
-        # career_analyzer.py expects both
-        # resume text and personality traits.
-
-        insights = analyze_resume(
-            text,
-            scores,
-        )
-
-        # ----------------------------------------------------
-        # COMPLETE
-        # ----------------------------------------------------
+        insights = analyze_resume(text, scores)
 
         progress.progress(100)
-
-        status.success(
-            "✅ Analysis completed successfully!"
-        )
-
+        status.success("✅ Analysis completed successfully!")
         progress.empty()
 
-        # ----------------------------------------------------
-        # DISPLAY RESULTS
-        # ----------------------------------------------------
+        # Render outputs
+        render_personality(scores)
+        render_resume_signals(insights)
+        render_career_directions(insights)
 
-        render_personality(
-            scores
-        )
+        st.markdown("<div style='height:15px'></div>", unsafe_allow_html=True)
 
-        render_resume_signals(
-            insights
-        )
+        # RESUME TEXT PREVIEW & EXPORT OPTIONS
+        col_exp, col_dl = st.columns([3, 1])
 
-        render_career_directions(
-            insights
-        )
+        with col_exp:
+            with st.expander("📄 Preview extracted resume text"):
+                st.caption("First 5,000 characters extracted from your PDF.")
+                st.text(text[:5000])
 
-        # ----------------------------------------------------
-        # RESUME TEXT
-        # ----------------------------------------------------
-
-        st.markdown(
-            "<div style='height:5px'></div>",
-            unsafe_allow_html=True,
-        )
-
-        with st.expander(
-            "📄 Preview extracted resume text"
-        ):
-
-            st.caption(
-                "First 5,000 characters extracted from your PDF."
+        with col_dl:
+            export_payload = json.dumps(
+                {
+                    "personality_scores": scores,
+                    "resume_signals": insights,
+                },
+                indent=2,
             )
 
-            st.text(
-                text[:5000]
+            st.download_button(
+                label="📥 Export Report (JSON)",
+                data=export_payload,
+                file_name="resumemind_analysis.json",
+                mime="application/json",
+                use_container_width=True,
             )
 
-        # ----------------------------------------------------
         # FOOTER
-        # ----------------------------------------------------
-
         st.markdown(
             """
             <div class="app-footer">
-                💗 Keep learning, keep growing —
-                your career journey starts with one step.
+                💗 Keep learning, keep growing — your career journey starts with one step.
             </div>
             """,
             unsafe_allow_html=True,
         )
 
     except ResumeParseError as exc:
-
         progress.empty()
         status.empty()
-
-        st.error(
-            f"❌ Could not read the resume: {exc}"
-        )
+        st.error(f"❌ Could not read the resume: {exc}")
 
     except ModelUnavailableError as exc:
-
         progress.empty()
         status.empty()
-
-        st.error(
-            f"❌ Personality model unavailable: {exc}"
-        )
-
-        st.info(
-            "Make sure the required model files "
-            "are present inside the `models` folder."
-        )
+        st.error(f"❌ Personality model unavailable: {exc}")
+        st.info("Make sure the required model files are present inside the `models` folder.")
 
     except FileNotFoundError as exc:
-
         progress.empty()
         status.empty()
-
-        st.error(
-            f"❌ Required file not found: {exc}"
-        )
+        st.error(f"❌ Required file not found: {exc}")
 
     except Exception as exc:
-
         progress.empty()
         status.empty()
-
-        st.error(
-            "❌ Something went wrong while analyzing "
-            "the resume."
-        )
-
+        st.error("❌ Something went wrong while analyzing the resume.")
         st.exception(exc)
 
 
@@ -1760,57 +1148,24 @@ def run_analysis(upload):
 # ============================================================
 
 def main():
-
-    # Sidebar
     render_sidebar()
-
-    # Hero
     render_hero()
 
-    # Upload
     upload, analyze = render_upload()
 
-    # Analysis
     if analyze and upload:
-
-        run_analysis(
-            upload
-        )
-
-    # Initial empty state
+        run_analysis(upload)
     elif upload is None:
-
         st.markdown(
             """
-            <div style="
-                text-align:center;
-                padding:1.4rem 0 2rem;
-            ">
-
-                <div style="
-                    font-size:2.4rem;
-                    margin-bottom:.35rem;
-                ">
-                    📄
-                </div>
-
-                <div style="
-                    font-weight:800;
-                    color:#344054;
-                    font-size:.95rem;
-                ">
+            <div style="text-align:center;padding:1.4rem 0 2rem;">
+                <div style="font-size:2.4rem;margin-bottom:.35rem;">📄</div>
+                <div style="font-weight:800;color:#344054;font-size:.95rem;">
                     Your resume insights will appear here
                 </div>
-
-                <div style="
-                    color:#98a2b3;
-                    font-size:.72rem;
-                    margin-top:.3rem;
-                ">
-                    Upload a PDF above and click
-                    “Analyze Resume” to get started.
+                <div style="color:#98a2b3;font-size:.72rem;margin-top:.3rem;">
+                    Upload a PDF above and click “Analyze Resume” to get started.
                 </div>
-
             </div>
             """,
             unsafe_allow_html=True,
